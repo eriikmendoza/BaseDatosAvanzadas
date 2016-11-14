@@ -1,0 +1,29 @@
+LOAD CSV FROM "https://raw.githubusercontent.com/eriikmendoza/BaseDatosAvanzadas/master/nodos.csv" AS row
+CREATE (:Node {id: row[0],name: row[1], categoria : row[2]});
+
+
+
+
+USING PERIODIC COMMIT
+LOAD CSV FROM "https://raw.githubusercontent.com/eriikmendoza/BaseDatosAvanzadas/master/edges.csv" AS row
+MATCH (n1:Node {id: row[0]}), (n2:Node {id: row[1]})
+CREATE (n1)-[r]->(n2);
+
+
+
+MATCH (n)
+OPTIONAL MATCH (n)-[r]-()
+DELETE n,r
+
+
+
+MATCH(n:{categoria:"University"}) Return n;
+
+
+
+Crea un servidor local pequeno 
+
+sudo python -m SimpleHTTPServer 80
+
+
+eriik@eriik-Inspiron-7537:~/Escritorio/myapp$ node app.js
